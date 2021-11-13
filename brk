@@ -1,1 +1,18 @@
 Data carving, also known as file carving, is the forensic technique of reassembling files from raw data fragments when no filesystem metadata is available.
+
+STRINGS--
+You'll find that programs often contain large amount of strings and using the "strings" tool from sysinternals may only display 10% of these...
+
+...That and it's not exactly practical scrolling up through a terminal for stuff like this - we are on Windows afterall! There's a GUI tool for that.
+
+Launch the application within "Tools/Static/PE Tools/PE Explorer
+
+Where you will be presented with the following, indicating that it has successfully imported:
+
+After import. Navigate to "View -> Imports"
+
+ida 
+IDA Freeware is arguable as the tool can be used for both static and dynamic analysis. 
+
+MSI is an installer package file format used by Windows. 
+
