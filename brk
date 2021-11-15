@@ -50,3 +50,41 @@ By using "vmonkey DefinitelyALegitInvoice.doc" vmonkey has detected potentially 
 
  
 PDF-----
+DF's are capable of containing many more types of code that can be executed without the user's knowledge. This includes:
+
+Javascript
+Python
+Executables
+Powershell Shellcode
+
+We'll be using 'peepdf' to begin a precursory analysis of a PDF file to determine the presence of Javascript. If there is, we will extract this Javascript code (without executing it) for our inspection.
+
+We can simply do "peepdf demo_notsuspicious.pdf"
+
+o extract this Javascript, we can use peepdf's "extract" module. This requires a few steps to set up but is fairly trivial.
+
+The following command will create a script file for 'peepdf' to use:
+
+      "echo 'extract js > javascript-from-demo_notsuspicious.pdf' > extracted_javascript.txt"
+
+when placing the text "extract js > javascript-from-demo_notsuspicious.pdf" in a file and passing that file to peepdf, it will execute the cmd to extract
+The script will extract all javascript via extract js and pipe > the contents into "javascript-from-demo_notsuspicious.pdf"
+
+We now need to tell peepdf the name of the script (extracted_javascript.txt) and the PDF file that we want to extract from (demo_notsuspicious.pdf): 
+
+    "peepdf -s extracted_javascript.txt demo_notsuspicious.pdf"
+    
+Remembering that the Javascript will output into a file called "javascript-from-demo_nonsuspicious.pdf" because of our script.
+
+To recap: "extracted_javascript.txt" (highlighted in red) is our script, where "demo_notsuspicious.pdf" (highlighted in green) is the original PDF file that we think is malicious.
+
+You will see an output, in this case, a file named "javascript-from-demo_notsuspicious" (highlighted in yellow). This file now contains our extracted Javascript, we can simply cat this to see the contents.
+  'cat javascript-from-demo_notsuspicious.pdf'
+  
+
+
+
+
+
+
+
