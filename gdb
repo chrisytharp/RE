@@ -22,3 +22,14 @@ gdb ./hello
 
 elf main
 exe entry
+-------------------
+0 x 1 = 0
+1 x 16 = 16
+1 x 16 x 16 = 256
+0 x 16 x 16 x 16 = 0
+
+0 + 16 + 256 + 0 = 272
+
+That is all there is to it. Here is the answer to 0X0110 in decimal:
+
+272
