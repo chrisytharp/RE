@@ -18,3 +18,7 @@ gdb ./hello
         ltrace    used to intercept and record the Dynamic Library calls which are called by the executing process and the signals which are reieved by the process 
         
         ltrace ./hello   || strace ./hello
+
+
+elf main
+exe entry
