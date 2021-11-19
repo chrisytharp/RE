@@ -48,6 +48,53 @@ Although, just put on your steganography hat...Authors can just remove the borde
 First, we will analyse a suspicious Microsoft Office Word document together. We can simply use REMnux's "vmonkey" which is a parser engine that is capable of analysing visual basic macros without executing (opening the document).
 By using "vmonkey DefinitelyALegitInvoice.doc" vmonkey has detected potentially malicious visual basic code within a macro.
 
+
+
+Assemble and link the assembly program using 
+  "nasm -felf32 assembly.asm && ld -m elf_i386 assembly.o"
+  
+ eadelf
+Now that the file has been identified, you could open it up in Ghidra straight away, or use the readelf command to give you a bit more information. Let's use readelf first then go into Ghidra. 
+
+Readelf provides information on ELF executables. Using readelf -a <executable> will display:
+
+File headers
+Program headers
+Section headers
+Symbols
+Relocations (if present)
+Dynamic sections (if present)
+Version sections (if present)
+Architecture-specific information
+All of the information above is important, yet you'll notice that some of the data returned may or may not be present in the binary. There are certain pieces of data that will always be present in an executable, as referred to the Application Binary Interface (ABI) in Linux. This is a set of ‘rules’ that executables need to follow for them to be ELF executables.
+
+One of the important parts of the readelf analysis is Section headers. In the image below you can see a number of different sections shown from the readelf output. If you refer to the code above the assembly program, it only declares two sections: .text and .data. The assembler actually creates a few more sections automatically with the headers which hold the information about each of the following sections:
+
+.text – Stores the executable code (defined by the program above)
+.data – Stores the initialised variables (defined by the program above)
+.symtab – An object file's symbol table which holds information needed to locate and relocate a program's symbolic definitions and symbolic references
+.strtab – String table sections hold null-terminated character sequences, commonly called strings
+.shstrtab – Holds section names
+
+Section information
+The image above depicts lots of information attached to the section headers, which are effectively the properties of each section. They are defined below:
+
+Type – Specifies the type of section
+NULL – An inactive header
+PROGBITS – Sections defined by the program itself (programmable bits)
+SYMTAB – Identifies sections that are symbol tables. With enough of these, the binary will be statically linked, not dynamically.
+Addr – The starting address of the section as if it was in running memory (RAM). Notice the .text Addr is the same as the Entry Point Address of the executable.
+00000000 – The section will never get loaded into RAM.
+Off – The offset within the executable from the starting point of the file 0. Notice the final two hexadecimal characters for the .data and .text section are the same as the last two for the Addr – a4 and 80 respectively.
+Size – The size of the sections referenced
+ES – Some sections hold a table of fixed-size entries, such as a symbol table. For such a section, this member gives the size in bytes of each entry.
+Flg – Flags which show the attributes of the section, whether it is executable, allocable, writeable, etc.
+Lk – Whether the section links to another section; this executable has the value 4 meaning it links to the section .strtab
+Inf – One greater than the symbol table index of the last local symbol, binding to STB_LOCAL (to keep the symbols inside the .symtab section only visible inside this file)
+Al – Section alignment: if there are certain size values inside various sections, the alignment may be required to be a certain value
+0 or 1 means there are no alignment requirements
+As a reverse engineer, it's important to get used to researching on your own. Go to the file /usr/include/elf.h to see the structure that defines a 32- bit ELF section header. This is also shown below:
+
  
 
 
