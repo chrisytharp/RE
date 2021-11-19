@@ -106,7 +106,9 @@ By selecting the .data section in the Program Trees Menu on the left hand side w
 Take a look at the decompiled code and try to make sense of it. Future episodes in this series will cover the decompiled widget further, but what do you think creates the do while loop?
 
  
-
+Another difference in the source code is that we use the label len to dictate the address that stores the value of the length of string
+Another difference in the source code is that we use the label len to dictate the address that stores the value of the length of string
+Another difference in the source code is that we use the label len to dictate the address that stores the value of the length of string
 
 
 
