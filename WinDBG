@@ -1,0 +1,30 @@
+Debugging
+There are two ways to go about debugging. To start a process inside WinDbg, go to File → Open Executable and select the executable to debug. Alternatively, WinDbg can be attached to a process that is already running. In this case, go to File → Attach to a Process.
+
+If WinDbg is used to attach to a process, it will attach and pause the process, interrupting it where it's currently executing. However, if the process is started inside WinDbg, then it will break at a number of loading locations until the entry point of the executable is reached.
+
+When an executable is loaded, the command window shows the output of loaded modules and where the breakpoint is within the instructions of the attached process. This is shown below:
+
+
+Initial breakpoint
+When an application starts inside the debugger, a breakpoint is hit. This is called the initial breakpoint and occurs early on in the lifecycle of the process.
+
+The k command will show the call stack as it currently stands. If performed at the initial breakpoint, you will see only a few ntdll! functions related to the loader in Windows (Ldr). This sets up the process to then load our executable properly into memory. If you know the sort of Windows API you want to break the execution on, simply type in bp <name_of_API>.
+
+APIs
+WinDbg has a certain syntax for APIs: <dll_name>!<api_name>.
+
+For example, to reach the breakpoint on the NtCreateFile Windows API, you need to know that it's inside the ntdll DLL. The syntax would be: bp ntdll!ntcreatefile
+
+To run the program to hit the breakpoint, enter the g command or select the run button in the toolbar.
+
+To check which DLL an API is executed in, google it or check the MSDN website. Find the entry for the NtCreateFile API here. The bottom of the page explains which DLL it's held in.
+
+Debugging
+One of the first tasks you might want to perform when analyzing an executable is to go to its entry point. WinDbg has an internal variable for this called $exentry, so entering the command bp $exentry and then g to run the execution will break at the identified entry point of the executable. This could be in WinMainCRTStartup for example.
+
+
+In the disassembly section, you will see the code that WinDbg has stopped on. To start executing code step by step, you can use the command section or the user interface buttons. We suggest you get used to using the command section because of its power. Below are some commands you need to know to debug an executable effectively
+
+
+Set Breakpoint on MAIN with "bp $exentry"  and the press "g" to run program
