@@ -95,6 +95,16 @@ Al – Section alignment: if there are certain size values inside various sectio
 0 or 1 means there are no alignment requirements
 As a reverse engineer, it's important to get used to researching on your own. Go to the file /usr/include/elf.h to see the structure that defines a 32- bit ELF section header. This is also shown below:
 
+Most notably is the addition of a function inside Ghidra. The label exit has actually created a function which is referable in the Symbol Tree Menu. 
+
+In the second line mov ecx, string, Ghidra has been our friend here. The hexadecimal ends in a4900408, which is little endian for 08090a4, a memory address which the string label references to. Ghidra knows this and has used the symbols defined within the executable to cross reference this for the reverse engineer. Hover over the string inside Ghidra to view the referenced place.
+
+Another difference in the source code is that we use the label len to dictate the address that stores the value of the length of string. This is calculated using $ - string (where $ represents the current memory address), which is present in the source code further up. The current memory address is subtracted from the address of string to find out the difference in memory addresses. This gives us the length of the string in bytes. However, you can see that edx in the sys_write system call takes an integer not a memory location. The directive equ tells the assembler to calculate this and replace where the label is referenced with the actual integer value.
+
+By selecting the .data section in the Program Trees Menu on the left hand side within Ghidra, you can see that the len label is not there, but the string is. This shows you that it is just replacing aspects of the code instead of storing it as a variable and referencing it from this section.
+
+Take a look at the decompiled code and try to make sense of it. Future episodes in this series will cover the decompiled widget further, but what do you think creates the do while loop?
+
  
 
 
