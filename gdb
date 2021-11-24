@@ -13,6 +13,7 @@ gdb ./hello
 (gdb) set $eax=0                        set EA register to 0 
 (gdb) set $eip=0x7857486547             set Instruction Pointer to bypass a logical jump
 (gdb) x/-8s $ebp                        examine vars that are stored in reference to Base Pointer by the last 8s-can use (- or +)
+(gdb) x/s 0x7fffffffe030                #info registers -> $rax has value "0x7fffffffe030" THIS CMD wiil read whats in the value stored at this address
 
  NOTE : strace    used to intercept the System calls that is called by a process and records the signals received by a process 
         ltrace    used to intercept and record the Dynamic Library calls which are called by the executing process and the signals which are reieved by the process 
