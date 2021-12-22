@@ -19,7 +19,7 @@ C:\Desktop\Tools>oledump.py Document1.doc
 -v, --vbadecompress - VBA decompression
 
 
-Example: oledump.py -s 8 -d file          <-- Dump raw, stream number 8 
-
+Example: oledump.py -s 8 -d file.docx > macrodump.txt          <-- Dump raw, stream number 8 
+         oledump.py -s 4 file.docx                             <-- view stream 4
 
 vmonkey -c file
