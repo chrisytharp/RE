@@ -18,4 +18,8 @@ C:\Desktop\Tools>oledump.py Document1.doc
 -S, --strings - perform a strings dump
 -v, --vbadecompress - VBA decompression
 
+
+Example: oledump.py -s 8 -d file          <-- Dump raw, stream number 8 
+
+
 vmonkey -c file
