@@ -1,0 +1,21 @@
+C:\Desktop\Tools>oledump.py Document1.doc
+1: 114 '\x01CompObj'
+2: 4096 '\x05DocumentSummaryInformation'
+3: 4096 '\x05SummaryInformation'
+4: 13859 '1Table'
+5: 33430 'Data'
+6: 365 'Macros/PROJECT'
+7: 41 'Macros/PROJECTwm'
+8: M 9852 'Macros/VBA/ThisDocument'                  <-- 'M' means macros
+
+-A does an ASCII dump similar to option -a, but duplicate lines are removed.
+-S dumps strings.
+-d produces a raw dump of the stream content. 
+-s STREAM NUMBER or --select=STREAM NUMBER allows you to select the stream number to analyze (-s a to select all streams)
+-d, --dump - perform a raw dump
+-x, --hexdump - perform a hex dump
+-a, --asciidump - perform an ascii dump
+-S, --strings - perform a strings dump
+-v, --vbadecompress - VBA decompression
+
+vmonkey -c file
