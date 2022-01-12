@@ -1,0 +1,2 @@
+# to decode cyber chef shell code - shows ip:port and win APIs
+scdbg -f download.dat -s -1 
